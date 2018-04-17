@@ -7,13 +7,14 @@ import re
 # Pattern matching with KMP Algorithm
 # Input: Text, pattern -> string
 # Output: First index of text that matches pattern, -1 if no match -> int
-def kmp_algo(text, pattern):
+def kmp_algo(text, pattern, case_sensitive, whole_word):
 	i = 0
 	j = 0
 
 	# Case-insensitive comparison
-	text = text.casefold()
-	pattern = pattern.casefold()
+	if (not(case_sensitive)):
+		text = text.casefold()
+		pattern = pattern.casefold()
 
 	b = border_function(pattern)
 
@@ -21,10 +22,10 @@ def kmp_algo(text, pattern):
 		if (text[i] == pattern[j]):
 			if (j == len(pattern) - 1):
 				index = i - len(pattern) + 1
-				if (wholeword_checker(index, text, len(pattern))):
+				if (not(whole_word) or wholeword_checker(index, text, len(pattern))):
 					return index
 				else:
-					return kmp_algo(text[index + 1:], pattern)
+					return kmp_algo(text[index + 1:], pattern, case_sensitive, whole_word)
 			i += 1
 			j += 1
 		elif (j > 0):
@@ -37,23 +38,24 @@ def kmp_algo(text, pattern):
 # Pattern matching with Boyer-Moore Algorithm
 # Input: Text, pattern -> string
 # Output: First index of text that matches pattern, -1 if not match -> int
-def bm_algo(text, pattern):
+def bm_algo(text, pattern, case_sensitive, whole_word):
 	i = len(pattern) - 1
 	j = len(pattern) - 1
 
 	# Case-insensitive comparison
-	text = text.casefold()
-	pattern = pattern.casefold()
+	if (not(case_sensitive)):
+		text = text.casefold()
+		pattern = pattern.casefold()
 
 	l = last_occurance(text, pattern)
 
 	while (i < len(text)):
 		if (text[i] == pattern[j]):
 			if (j == 0):
-				if (wholeword_checker(i, text, len(pattern))):
+				if (not(whole_word) or wholeword_checker(i, text, len(pattern))):
 					return i
 				else:
-					return bm_algo(text[i + 1:], pattern)
+					return bm_algo(text[i + 1:], pattern, case_sensitive, whole_word)
 			else:
 				i -= 1
 				j -= 1
@@ -134,11 +136,11 @@ def wholeword_checker(index, text, length):
 #
 def main():
 	text = "check@sum"
-	pattern = "check"
+	pattern = "Check"
 	print("KMP: ")
-	print(kmp_algo(text, pattern))
+	print(kmp_algo(text, pattern, True, True))
 	print("BM: ")
-	print(bm_algo(text, pattern))
+	print(bm_algo(text, pattern, True, True))
 	print("Regex: ")
 	print(regex(text, pattern))
 	print(text)

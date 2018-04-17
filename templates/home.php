@@ -58,6 +58,11 @@
                 <label class="form-check-label" for="caseSensitiveCheck">Case sensitive</label>
             </div>
 
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="wholeWordCheck" name="whole_word">
+                <label class="form-check-label" for="wholeWordCheck">Whole word</label>
+            </div>
+
             <button type="submit" class="btn btn-primary btn-block">Go!</button>
         </form>
     </div>
@@ -80,7 +85,7 @@
 
             function get_api($api_url, $request) {
                 // Make query string
-                $query_str = "?username=" . $request["username"] . "&keywords=" . $request["keywords"] . "&algorithm=" . $request["algorithm"] . "&case_sensitive=" . $request["case_sensitive"];
+                $query_str = "?username=" . $request["username"] . "&keywords=" . $request["keywords"] . "&algorithm=" . $request["algorithm"] . "&case_sensitive=" . $request["case_sensitive"] . "&whole_word=" . $request["whole_word"];
                 $query_str = preg_replace('/\s+/', '', $query_str);
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $api_url . $query_str);
@@ -101,8 +106,17 @@
                         <div class=\"card\">
                             <div class=\"card-body\">
                                 <h3 style=\"padding-top: 15px\">Showing tweets from @". $tweets[0]->username ."</h3>
-                                <p><em>Spam keywords: </em>
                     ";
+
+                    if($request["case_sensitive"] == on) {
+                        echo "<mark class=\"text-white bg-success\">Case sensitive</mark> ";
+                    }
+
+                    if($request["whole_word"] == on) {
+                        echo "<mark class=\"text-white bg-success\">Whole word</mark>";
+                    }
+
+                    echo "<p style=\"margin-top: 10px\"><em>Spam keywords: </em>";
 
                     foreach ($tweets[0]->spam_keywords as $key => $keyword) {
                         echo "<mark class=\"text-white bg-danger\">". $keyword ."</mark> ";
