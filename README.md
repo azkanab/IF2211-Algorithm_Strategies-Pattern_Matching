@@ -1,1 +1,7 @@
-# IF2211-Algorithm_Strategies-Pattern_Matching
+# IF2211 - Algorithm Strategies - Pattern Matching
+
+## Running
+```
+$ sudo chmod +x run.sh
+$ ./run.sh
+```
