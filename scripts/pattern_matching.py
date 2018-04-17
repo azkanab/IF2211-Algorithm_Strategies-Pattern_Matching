@@ -2,6 +2,8 @@
 # PATTERN MATCHING ALGORITHM
 #
 
+import re
+
 # Pattern matching with KMP Algorithm
 # Input: Text, pattern -> string
 # Output: First index of text that matches pattern, -1 if no match -> int
@@ -27,7 +29,6 @@ def kmp_algo(text, pattern):
 			i += 1
 
 	return -1
-
 
 # Pattern matching with Boyer-Moore Algorithm
 # Input: Text, pattern -> string
@@ -56,9 +57,8 @@ def bm_algo(text, pattern):
 
 	return -1
 
-
 #
-# HELPER FUNCTIONS
+# HELPER FUNCTION
 #
 
 # Calculate border function
@@ -83,7 +83,6 @@ def border_function(pattern):
 
 	return b
 
-
 # Save index of last occurance per element in pattern with element from text
 # Input: Text, pattern -> string
 # Output: -> Dictionary
@@ -96,21 +95,45 @@ def last_occurance(text, pattern):
 
 	return l
 
-
+def regex(text, pattern) :
+	regex = re.compile(pattern)
+	matches = regex.findall(text) # Menemukan semua hasil pencarian
+	# Apakah ada yang cocok?
+	if regex.search(text) :
+		matchespositions = [m.start() for m in regex.finditer(text)] # Array form
+		if len(matches) == 1 :
+			print("1 match found :", matchespositions)
+		else :
+			print(len(matches), "matches found :", matchespositions)
+	else :
+		matchespositions = []
+		print("There is no match")
+	return matchespositions
 #
 # MAIN
 #
 def main():
-	text = "abacaabaccabacabaABb"
-	pattern = "abACab"
+	text = "abacaabaccabacabaabbababababaabacab"
+	pattern = "abacab"
 	print("KMP: ")
 	print(kmp_algo(text, pattern))
 	print("BM: ")
 	print(bm_algo(text, pattern))
-
+	print("Regex: ")
+	print(regex(text, pattern))
 	print(text)
 	print(pattern)
 
+	# UNTUK REGEX USER DEFINED
+	print()
+	print(" ****** USER DEFINED REGEX *****")
+	print()
+	# COBA INPUT (\w+):(\w+):(\d+)
+	pattern = input("Input Regular Expressions : ")
+	print()
+	text = 'apple:green:3 banana:yellow:5 heyy zka'
+	regexresult = regex(text, pattern)
+	print(regexresult)
 
 if __name__ == '__main__':
 	main()

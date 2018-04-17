@@ -23,12 +23,14 @@
 
         <!-- PHP script to show alert -->
         <?php
-            if(!$_GET["keywords"] || !$_GET["username"]) {
-                echo "
-                    <div class=\"alert alert-warning\" role=\"alert\">
-                        Please fill out all the fields.
-                    </div>
-                ";
+            if(isset($_GET["keywords"]) && isset($_GET["username"])) {
+                if(!$_GET["keywords"] || !$_GET["username"]) {
+                    echo "
+                        <div class=\"alert alert-warning\" role=\"alert\">
+                            Please fill out all the fields.
+                        </div>
+                    ";
+                }
             }
         ?>
 
@@ -52,7 +54,7 @@
             </div>
 
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="caseSensitiveCheck">
+                <input type="checkbox" class="form-check-input" id="caseSensitiveCheck" name="case_sensitive">
                 <label class="form-check-label" for="caseSensitiveCheck">Case sensitive</label>
             </div>
 
@@ -78,7 +80,8 @@
 
             function get_api($api_url, $request) {
                 // Make query string
-                $query_str = "?username=" . $request["username"] . "&keywords=" . $request["keywords"] . "&algorithm=" . $request["algorithm"];
+                $query_str = "?username=" . $request["username"] . "&keywords=" . $request["keywords"] . "&algorithm=" . $request["algorithm"] . "&case_sensitive=" . $request["case_sensitive"];
+                $query_str = preg_replace('/\s+/', '', $query_str);
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $api_url . $query_str);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -94,6 +97,23 @@
                 $tweets = json_decode($response);
 
                 if ($tweets) {
+                    echo "
+                        <div class=\"card\">
+                            <div class=\"card-body\">
+                                <h3 style=\"padding-top: 15px\">Showing tweets from @". $tweets[0]->username ."</h3>
+                                <p><em>Spam keywords: </em>
+                    ";
+
+                    foreach ($tweets[0]->spam_keywords as $key => $keyword) {
+                        echo "<mark class=\"text-white bg-danger\">". $keyword ."</mark> ";
+                    }
+
+                    echo "</p>
+                            </div>
+                        </div>
+                        <br>
+                    ";
+
                     echo "<div class=\"card-columns\">";
                     foreach ($tweets as $tweet) {
                         if ($tweet->spam) {
@@ -102,7 +122,7 @@
                                     <div class=\"card-header text-white bg-danger border-danger\">SPAM</div>
                                     <img class=\"rounded-circle float-left\" src=\"". $tweet->profile_image_url ."\" alt=\"Profile picture\" style=\"padding: 12px\">
                                     <div class=\"card-body\">
-                                        <h4 style=\"padding-top: 4px\">". $tweet->username ."</h4>
+                                        <h5 style=\"padding-top: 7px\">@". $tweet->username ."</h5>
                                         <br>
                                         <p class=\"card-text\">". $tweet->text ."</p>
                                         <p class=\"card-text\"><small class=\"text-muted\">". $tweet->created ."</small></p>
@@ -114,7 +134,7 @@
                                 <div class=\"card\">
                                     <img class=\"rounded-circle float-left\" src=\"". $tweet->profile_image_url ."\" alt=\"Profile picture\" style=\"padding: 12px\">
                                     <div class=\"card-body\">
-                                        <h4 style=\"padding-top: 4px\">". $tweet->username ."</h4>
+                                        <h5 style=\"padding-top: 7px\">@". $tweet->username ."</h5>
                                         <br>
                                         <p class=\"card-text\">". $tweet->text ."</p>
                                         <p class=\"card-text\"><small class=\"text-muted\">". $tweet->created ."</small></p>

@@ -1,1 +1,1 @@
-php -S localhost:4444 & python app.py && fg
+python app.py & php -S localhost:4444 && fg
