@@ -20,7 +20,11 @@ def kmp_algo(text, pattern):
 	while (i < len(text)):
 		if (text[i] == pattern[j]):
 			if (j == len(pattern) - 1):
-				return i - len(pattern) + 1
+				index = i - len(pattern) + 1
+				if (wholeword_checker(index, text, len(pattern))):
+					return index
+				else:
+					return kmp_algo(text[index + 1:], pattern)
 			i += 1
 			j += 1
 		elif (j > 0):
@@ -46,7 +50,10 @@ def bm_algo(text, pattern):
 	while (i < len(text)):
 		if (text[i] == pattern[j]):
 			if (j == 0):
-				return i
+				if (wholeword_checker(i, text, len(pattern))):
+					return i
+				else:
+					return bm_algo(text[i + 1:], pattern)
 			else:
 				i -= 1
 				j -= 1
@@ -56,6 +63,21 @@ def bm_algo(text, pattern):
 			j = len(pattern) - 1
 
 	return -1
+
+def regex(text, pattern):
+	regex = re.compile(pattern)
+	matches = regex.findall(text) # Menemukan semua hasil pencarian
+	# Apakah ada yang cocok?
+	if regex.search(text) :
+		matchespositions = [m.start() for m in regex.finditer(text)] # Array form
+		if len(matches) == 1 :
+			print("1 match found :", matchespositions)
+		else :
+			print(len(matches), "matches found :", matchespositions)
+	else :
+		matchespositions = []
+		print("There is no match")
+	return matchespositions
 
 #
 # HELPER FUNCTION
@@ -95,26 +117,24 @@ def last_occurance(text, pattern):
 
 	return l
 
-def regex(text, pattern) :
-	regex = re.compile(pattern)
-	matches = regex.findall(text) # Menemukan semua hasil pencarian
-	# Apakah ada yang cocok?
-	if regex.search(text) :
-		matchespositions = [m.start() for m in regex.finditer(text)] # Array form
-		if len(matches) == 1 :
-			print("1 match found :", matchespositions)
-		else :
-			print(len(matches), "matches found :", matchespositions)
-	else :
-		matchespositions = []
-		print("There is no match")
-	return matchespositions
+# Check whether word selected is whole (not substring of other word)
+# Input: starting index of pattern -> int, text -> string, length of pattern -> int
+# Output: -> Boolean
+def wholeword_checker(index, text, length):
+	if (index > 0):
+		if (text[index - 1].isalnum()):
+			return False
+	if (index + length < len(text)):
+		if (text[index + length].isalnum()):
+			return False
+	return True
+
 #
 # MAIN
 #
 def main():
-	text = "abacaabaccabacabaabbababababaabacab"
-	pattern = "abacab"
+	text = "check@sum"
+	pattern = "check"
 	print("KMP: ")
 	print(kmp_algo(text, pattern))
 	print("BM: ")
