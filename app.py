@@ -31,4 +31,4 @@ if __name__ == '__main__':
                       access_token_secret=ACCESS_TOKEN_KEY)
 
     # Run app
-    app.run(debug=True, port=4444, threaded=True)
+    app.run(debug=True, port=4445, threaded=True)
