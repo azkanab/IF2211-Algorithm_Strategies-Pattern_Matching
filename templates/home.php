@@ -58,7 +58,7 @@
                 <label class="form-check-label" for="caseSensitiveCheck">Case sensitive</label>
             </div>
 
-            <div class="form-group form-check">
+            <div class="form-group form-check" style="margin-top: -5px">
                 <input type="checkbox" class="form-check-input" id="wholeWordCheck" name="whole_word">
                 <label class="form-check-label" for="wholeWordCheck">Whole word</label>
             </div>
