@@ -68,21 +68,21 @@ def bm_algo(text, pattern, case_sensitive, whole_word):
 
 # Pattern matching using regex
 # Input: Text, pattern -> string
-# Output: 
+# Output: Array of string with [0] text before match, [1] matched text, [2] text after match. -1 if no match -> int
 def regex(text, pattern):
 	regex = re.compile(pattern)
 	matches = regex.findall(text) # Menemukan semua hasil pencarian
 	# Apakah ada yang cocok?
 	if regex.search(text) :
-		matchespositions = [m.start() for m in regex.finditer(text)] # Array form
+		matchespositionsstart = [m.start() for m in regex.finditer(text)] # Array form
+		matchespositionsend = [m.end() for m in regex.finditer(text)]
 		if len(matches) == 1 :
-			print("1 match found :", matchespositions)
+			print("1 match found :", matchespositionsstart)
 		else :
-			print(len(matches), "matches found :", matchespositions)
+			print(len(matches), "matches found :", matchespositionsstart)
 	else :
-		matchespositions = []
-		print("There is no match")
-	return matchespositions
+		return -1
+	return splitstring(text, matchespositionsstart, matchespositionsend)
 
 #
 # HELPER FUNCTION
@@ -133,6 +133,18 @@ def wholeword_checker(index, text, length):
 		if (text[index + length].isalnum()):
 			return False
 	return True
+
+def splitstring(text, matchespositionsstart, matchespositionsend) :
+	result = []
+	temp = 0
+	for i in range (0,len(matchespositionsstart)) :
+		indexstart = matchespositionsstart[i]
+		indexend = matchespositionsend[i]
+		result.append(text[temp:indexstart])
+		result.append(text[indexstart:indexend])
+		temp = indexend
+	result.append(text[temp:])
+	return result
 
 #
 # MAIN
