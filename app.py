@@ -45,14 +45,18 @@ def show_spam_tweets():
 
         if algorithm == 0:
             for keyword in keywords:
-                if bm_algo(tweet['text'], keyword, case_sensitive, whole_word) >= 0:
+                result = bm_algo(tweet['text'], keyword, case_sensitive, whole_word)
+                if result != -1:
                     tweet['spam'] = True
+                    tweet['text'] = result
                     break
         # KMP
         else:
             for keyword in keywords:
-                if kmp_algo(tweet['text'], keyword, case_sensitive, whole_word) >= 0:
+                result = kmp_algo(tweet['text'], keyword, case_sensitive, whole_word)
+                if result != -1:
                     tweet['spam'] = True
+                    tweet['text'] = result
                     break
 
         tweets.append(tweet)

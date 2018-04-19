@@ -138,7 +138,7 @@
                                     <div class=\"card-body\">
                                         <h5 style=\"padding-top: 7px\">@". $tweet->username ."</h5>
                                         <br>
-                                        <p class=\"card-text\">". $tweet->text ."</p>
+                                        <div class=\"card-text\">". $tweet->text[0] ."<div class=\"text-white bg-danger border-danger\" style=\"display:inline\">". $tweet->text[1] ."</div>". $tweet->text[2] ."</div>
                                         <p class=\"card-text\"><small class=\"text-muted\">". $tweet->created ."</small></p>
                                     </div>
                                 </div>

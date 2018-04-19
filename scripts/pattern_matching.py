@@ -6,7 +6,7 @@ import re
 
 # Pattern matching with KMP Algorithm
 # Input: Text, pattern -> string
-# Output: First index of text that matches pattern, -1 if no match -> int
+# Output: Array of string with [0] text before match, [1] matched text, [2] text after match. -1 if no match -> int
 def kmp_algo(text, pattern, case_sensitive, whole_word):
 	i = 0
 	j = 0
@@ -23,7 +23,7 @@ def kmp_algo(text, pattern, case_sensitive, whole_word):
 			if (j == len(pattern) - 1):
 				index = i - len(pattern) + 1
 				if (not(whole_word) or wholeword_checker(index, text, len(pattern))):
-					return index
+					return [text[:index], text[index:(index+len(pattern))], text[index+len(pattern):]]
 				else:
 					return kmp_algo(text[index + 1:], pattern, case_sensitive, whole_word)
 			i += 1
@@ -37,7 +37,7 @@ def kmp_algo(text, pattern, case_sensitive, whole_word):
 
 # Pattern matching with Boyer-Moore Algorithm
 # Input: Text, pattern -> string
-# Output: First index of text that matches pattern, -1 if not match -> int
+# Output: Array of string with [0] text before match, [1] matched text, [2] text after match. -1 if no match -> int
 def bm_algo(text, pattern, case_sensitive, whole_word):
 	i = len(pattern) - 1
 	j = len(pattern) - 1
@@ -53,7 +53,7 @@ def bm_algo(text, pattern, case_sensitive, whole_word):
 		if (text[i] == pattern[j]):
 			if (j == 0):
 				if (not(whole_word) or wholeword_checker(i, text, len(pattern))):
-					return i
+					return [text[:i], text[i:(i+len(pattern))], text[i+len(pattern):]]
 				else:
 					return bm_algo(text[i + 1:], pattern, case_sensitive, whole_word)
 			else:
@@ -135,7 +135,7 @@ def wholeword_checker(index, text, length):
 # MAIN
 #
 def main():
-	text = "check@sum"
+	text = "ASdasda Check asdasd"
 	pattern = "Check"
 	print("KMP: ")
 	print(kmp_algo(text, pattern, True, True))
