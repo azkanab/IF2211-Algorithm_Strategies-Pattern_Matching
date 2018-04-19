@@ -61,11 +61,14 @@ def bm_algo(text, pattern, case_sensitive, whole_word):
 				j -= 1
 		else:
 			last_occ = l[text[i]]
-			i = i + len(pattern) - min(j, 1 + last_occ)
+	 		i = i + len(pattern) - min(j, 1 + last_occ)
 			j = len(pattern) - 1
 
 	return -1
 
+# Pattern matching using regex
+# Input: Text, pattern -> string
+# Output: 
 def regex(text, pattern):
 	regex = re.compile(pattern)
 	matches = regex.findall(text) # Menemukan semua hasil pencarian
