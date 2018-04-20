@@ -65,8 +65,7 @@ def show_spam_tweets():
                     tweet['text'] = result
                     break
 
-        if tweet['spam'] == True:
-            tweets.append(tweet)
+        tweets.append(tweet)
     
     # Return json
     return json.dumps(tweets)
