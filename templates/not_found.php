@@ -8,7 +8,7 @@
 </head>
 <body>
 	<?php
-		echo "Gaada bos."
+		echo "404 Gaada bos."
 	?>
 </body>
 </html>
