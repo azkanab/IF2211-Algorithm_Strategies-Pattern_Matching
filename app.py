@@ -20,8 +20,12 @@ def show_spam_tweets():
     case_sensitive = request.args.get('case_sensitive', type=bool)
     whole_word = request.args.get('whole_word', type=bool)
 
-    # Parse keywords
-    keywords = keywords.replace("@", "").replace(" ", "").split(",")
+    # Parse keywords (unless regex)
+    print (keywords);
+    if (algorithm != 2):
+        keywords = keywords.replace("@", "").replace(" ", "").split(",")
+    else:
+        keywords = [keywords]
 
     # Request user tweets from Twitter API
     statuses = api.GetUserTimeline(screen_name=username)
@@ -37,22 +41,32 @@ def show_spam_tweets():
         tweet['created'] = status.created_at
         tweet['spam_keywords'] = keywords
 
-        # TODO: Regex and case sensitive
-
         # Use algorithm to filter tweets for spam
         # Bayer-Moore
         tweet['spam'] = False
 
         if algorithm == 0:
             for keyword in keywords:
-                if bm_algo(tweet['text'], keyword, case_sensitive, whole_word) >= 0:
+                result = bm_algo(tweet['text'], keyword, case_sensitive, whole_word)
+                if result != -1:
                     tweet['spam'] = True
+                    tweet['text'] = result
                     break
         # KMP
-        else:
+        elif algorithm == 1:
             for keyword in keywords:
-                if kmp_algo(tweet['text'], keyword, case_sensitive, whole_word) >= 0:
+                result = kmp_algo(tweet['text'], keyword, case_sensitive, whole_word)
+                if result != -1:
                     tweet['spam'] = True
+                    tweet['text'] = result
+                    break
+        # REGULAR EXPRESSIONS
+        elif algorithm == 2:
+            for keyword in keywords:
+                result = regex(tweet['text'], keyword)
+                if result != -1:
+                    tweet['spam'] = True
+                    tweet['text'] = result
                     break
 
         tweets.append(tweet)
