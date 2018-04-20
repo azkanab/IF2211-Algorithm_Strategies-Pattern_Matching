@@ -47,25 +47,25 @@
 
             <div class="form-group">
                 <label for="keywordsTextArea" id="keywordsLabel">Spam Keywords</label>
-                <textarea class="form-control" id="keywordsTextArea" name="keywords" rows="3" placeholder="example: fake, news, trump"></textarea>
+                <textarea class="form-control" id="keywordsTextArea" name="keywords" rows="3" placeholder="example: fake, news, trump"><?php echo $_GET["keywords"]; ?></textarea>
             </div>
 
             <div class="form-group">
                 <label for="algorithmSelect">Pattern-Matching Algorithm</label>
                 <select class="form-control" id="algorithmSelect" name="algorithm">
-                    <option value="0">Boyer-Moore</option>
-                    <option value="1">KMP</option>
-                    <option value="2">Regular Expressions</option>
+                    <option <?php if($_GET["algorithm"] == '0') {echo("selected");}?> value="0">Boyer-Moore</option>
+                    <option <?php if($_GET["algorithm"] == '1') {echo("selected");}?> value="1">KMP</option>
+                    <option <?php if($_GET["algorithm"] == '2') {echo("selected");}?> value="2">Regular Expressions</option>
                 </select>
             </div>
 
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="caseSensitiveCheck" name="case_sensitive">
+                <input type="checkbox" class="form-check-input" id="caseSensitiveCheck" name="case_sensitive" <?php if($_GET["case_sensitive"] == on) {echo("checked=\"checked\"");}?>>
                 <label class="form-check-label" for="caseSensitiveCheck">Case sensitive</label>
             </div>
 
             <div class="form-group form-check" style="margin-top: -5px">
-                <input type="checkbox" class="form-check-input" id="wholeWordCheck" name="whole_word">
+                <input type="checkbox" class="form-check-input" id="wholeWordCheck" name="whole_word" <?php if($_GET["whole_word"] == on) {echo("checked=\"checked\"");}?>>
                 <label class="form-check-label" for="wholeWordCheck">Whole word</label>
             </div>
 
@@ -145,6 +145,7 @@
                                         <h5 style=\"padding-top: 7px\">@". $tweet->username ."</h5>
                                         <br>
                                         <div class=\"card-text\">". $tweet->text[0] ."";
+
                             for ($i = 1; $i < sizeof($tweet->text); $i++) {
                                 if ($i % 2 != 0) {
                                     echo "<div class=\"text-white bg-danger border-danger\" style=\"display:inline\">". $tweet->text[$i] ."</div>";

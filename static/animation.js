@@ -6,6 +6,7 @@ var iterator = 0;
 $(document).ready(function() {
     // Init title animation
     captionEl = $('#titleBox');
+    iterator = $('#algorithmSelect').val();
     setInterval ('cursorAnimation()', 800);
     setTimeout('initialize()', 1000);
     setTimeout('executeTypingEffect()', 2000);
