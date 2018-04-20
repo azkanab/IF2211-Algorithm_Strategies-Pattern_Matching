@@ -46,7 +46,7 @@
             </div>
 
             <div class="form-group">
-                <label for="keywordsTextArea">Spam Keywords</label>
+                <label for="keywordsTextArea" id="keywordsLabel">Spam Keywords</label>
                 <textarea class="form-control" id="keywordsTextArea" name="keywords" rows="3" placeholder="example: fake, news, trump"></textarea>
             </div>
 
@@ -144,7 +144,17 @@
                                     <div class=\"card-body\">
                                         <h5 style=\"padding-top: 7px\">@". $tweet->username ."</h5>
                                         <br>
-                                        <div class=\"card-text\">". $tweet->text[0] ."<div class=\"text-white bg-danger border-danger\" style=\"display:inline\">". $tweet->text[1] ."</div>". $tweet->text[2] ."</div>
+                                        <div class=\"card-text\">". $tweet->text[0] ."";
+                            for ($i = 1; $i < sizeof($tweet->text); $i++) {
+                                if ($i % 2 != 0) {
+                                    echo "<div class=\"text-white bg-danger border-danger\" style=\"display:inline\">". $tweet->text[$i] ."</div>";
+                                }
+                                else {
+                                    echo "". $tweet->text[$i] ."";
+                                }
+                            }
+                            echo "
+                                        </div>
                                         <p class=\"card-text\"><small class=\"text-muted\">". $tweet->created ."</small></p>
                                     </div>
                                 </div>

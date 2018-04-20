@@ -4,11 +4,29 @@ var textLength = 4;
 var iterator = 0;
 
 $(document).ready(function() {
+    // Init title animation
     captionEl = $('#titleBox');
     setInterval ('cursorAnimation()', 800);
     setTimeout('initialize()', 1000);
     setTimeout('executeTypingEffect()', 2000);
-    setInterval('changeText()', 3500);
+
+    // Regex vs etc algo switching
+    $('#algorithmSelect').change(function() {
+        if ($(this).val() == 2) {
+            $('#caseSensitiveCheck').attr("disabled", true);
+            $('#wholeWordCheck').attr("disabled", true);
+            $('#keywordsTextArea').attr("placeholder", "example: \\w\\w\\w");
+            $('#keywordsLabel').html("Regular Expression:");
+            changeText($(this).val());
+        }
+        else {
+            $('#caseSensitiveCheck').removeAttr("disabled");
+            $('#wholeWordCheck').removeAttr("disabled");
+            $('#keywordsTextArea').attr("placeholder", "example: fake, news, trump");
+            $('#keywordsLabel').html("Spam Keywords");
+            changeText($(this).val());
+        }
+    })
 });
 
 function cursorAnimation() {
@@ -31,26 +49,24 @@ function initialize() {
     }
 }
 
-function changeText() {
+function changeText(algorithm) {
+    iterator = algorithm;
     executeErasingEffect();
     setTimeout('executeTypingEffect()', 1000);
 }
 
 function executeTypingEffect() {
     if (iterator == 0) {
-        caption = "Using KMP";
-        textLength = 3;
-        iterator = 1;
-    }
-    else if (iterator == 1) {
         caption = "Using Boyer-Moore";
         textLength = 11;
-        iterator = 2;
+    }
+    else if (iterator == 1) {
+        caption = "Using KMP";
+        textLength = 3;
     }
     else {
         caption = "Using Regex";
         textLength = 5;
-        iterator = 0;
     }
     type();
 }

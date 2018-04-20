@@ -20,8 +20,12 @@ def show_spam_tweets():
     case_sensitive = request.args.get('case_sensitive', type=bool)
     whole_word = request.args.get('whole_word', type=bool)
 
-    # Parse keywords
-    keywords = keywords.replace("@", "").replace(" ", "").split(",")
+    # Parse keywords (unless regex)
+    print (keywords);
+    if (algorithm != 2):
+        keywords = keywords.replace("@", "").replace(" ", "").split(",")
+    else:
+        keywords = [keywords]
 
     # Request user tweets from Twitter API
     statuses = api.GetUserTimeline(screen_name=username)
