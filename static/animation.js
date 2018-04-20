@@ -4,10 +4,11 @@ var textLength = 4;
 var iterator = 0;
 
 $(document).ready(function() {
-	captionEl = $('#titleBox');
-    setTimeout('executeTypingEffect()', 1000);
-    setInterval('changeText()', 3000);
+    captionEl = $('#titleBox');
     setInterval ('cursorAnimation()', 800);
+    setTimeout('initialize()', 1000);
+    setTimeout('executeTypingEffect()', 2000);
+    setInterval('changeText()', 3500);
 });
 
 function cursorAnimation() {
@@ -19,21 +20,37 @@ function cursorAnimation() {
 
 }
 
+function initialize() {
+    caption_temp = 'Spam!'
+    $('#spamTitle').html(caption_temp.substr(0, captionLength++));
+    if(captionLength < caption_temp.length+1) {
+        setTimeout('initialize()', 50);
+    } else {
+        captionLength = 0;
+        caption = '';
+    }
+}
+
 function changeText() {
     executeErasingEffect();
-    setTimeout('executeTypingEffect()', 800);
+    setTimeout('executeTypingEffect()', 1000);
 }
 
 function executeTypingEffect() {
-    if (iterator == 1) {
-        caption = "F*ck You";
+    if (iterator == 0) {
+        caption = "Using KMP";
         textLength = 3;
+        iterator = 1;
+    }
+    else if (iterator == 1) {
+        caption = "Using Boyer-Moore";
+        textLength = 11;
         iterator = 2;
     }
     else {
-        caption = "F*ck Spam";
-        textLength = 4;
-        iterator = 1;
+        caption = "Using Regex";
+        textLength = 5;
+        iterator = 0;
     }
     type();
 }

@@ -18,6 +18,7 @@
 <body>
     <div class="container">
         <h1 class="display-4 text-center" style="padding-top: 40px">
+            <span class="text-white bg-danger" id="spamTitle"></span>
             <span id="titleBox"></span>
             <span id="cursor" style='margin-left: -20px'>|</span>
         </h1>
@@ -46,7 +47,7 @@
 
             <div class="form-group">
                 <label for="keywordsTextArea">Spam Keywords</label>
-                <textarea class="form-control" id="keywordsTextArea" name="keywords" rows="3" placeholder="example: fuck, shit, trump"></textarea>
+                <textarea class="form-control" id="keywordsTextArea" name="keywords" rows="3" placeholder="example: fake, news, trump"></textarea>
             </div>
 
             <div class="form-group">
