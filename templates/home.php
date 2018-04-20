@@ -12,11 +12,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/animation.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="display-4 text-center" style="padding-top: 40px">F*ck Spam</h1>
+        <h1 class="display-4 text-center" style="padding-top: 40px">
+            <span id="titleBox"></span>
+            <span id="cursor" style='margin-left: -20px'>|</span>
+        </h1>
         <p class="text-secondary text-center">
             Hello World! Let's find out who tweeted spams recently.
         </p>
@@ -37,7 +41,7 @@
         <form action="<?php $_PHP_SELF ?>" method="GET" id="main-form">
             <div class="form-group">
                 <label for="usernameInput">Twitter Username</label>
-                <input type="text" class="form-control" id="usernameInput" name="username" placeholder="example: @realDonaldTrump">
+                <input type="text" class="form-control" id="usernameInput" name="username" placeholder="example: @realDonaldTrump" value="<?php echo $_GET["username"]; ?>">
             </div>
 
             <div class="form-group">
