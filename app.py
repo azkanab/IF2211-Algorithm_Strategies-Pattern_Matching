@@ -37,8 +37,6 @@ def show_spam_tweets():
         tweet['created'] = status.created_at
         tweet['spam_keywords'] = keywords
 
-        # TODO: Regex and case sensitive
-
         # Use algorithm to filter tweets for spam
         # Bayer-Moore
         tweet['spam'] = False
@@ -51,15 +49,24 @@ def show_spam_tweets():
                     tweet['text'] = result
                     break
         # KMP
-        else:
+        elif algorithm == 1:
             for keyword in keywords:
                 result = kmp_algo(tweet['text'], keyword, case_sensitive, whole_word)
                 if result != -1:
                     tweet['spam'] = True
                     tweet['text'] = result
                     break
+        # REGULAR EXPRESSIONS
+        elif algorithm == 2:
+            for keyword in keywords:
+                result = regex(tweet['text'], keyword)
+                if result != -1:
+                    tweet['spam'] = True
+                    tweet['text'] = result
+                    break
 
-        tweets.append(tweet)
+        if tweet['spam'] == True:
+            tweets.append(tweet)
     
     # Return json
     return json.dumps(tweets)

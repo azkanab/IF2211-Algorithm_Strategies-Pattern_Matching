@@ -50,6 +50,7 @@
                 <select class="form-control" id="algorithmSelect" name="algorithm">
                     <option value="0">Boyer-Moore</option>
                     <option value="1">KMP</option>
+                    <option value="2">Regular Expressions</option>
                 </select>
             </div>
 
