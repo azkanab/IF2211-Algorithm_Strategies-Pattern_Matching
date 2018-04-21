@@ -28,15 +28,15 @@
         <br>
         <div class="media">
     		<div class="media-left">
-  	        	<img class = "media-object" src = "faza.png" style = "width:200px;height:200px;">
+  	        	<img class = "media-object img-circle" src = "faza.png" style = "width:200px;height:200px;">
 	        	<figcaption class = "caption"> Faza Fahleraz - 13516095</figcaption>
     		</div>
-    		<div class = "media-body" style="padding-left: 23%">
+    		<div class = "media-body img-circle" style="padding-left: 23%">
 	        	<img class = "media-object" src = "azka.png" style = "width:200px;height:200px;">
 	        	<figcaption class = "caption"> Azka Nabilah M - 13516013</figcaption>
     		</div>
     		<div class="media-right">
-	        	<img class = "media-object" src = "ramboy.png" style = "width:200px;height:200px;">
+	        	<img class = "media-object img-circle" src = "ramboy.png" style = "width:200px;height:200px;">
 	        	<figcaption class = "caption"> Yusuf Rahmat P - 13516062</figcaption>
     		</div>
   		</div>
