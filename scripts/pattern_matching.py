@@ -13,17 +13,20 @@ def kmp_algo(text, pattern, case_sensitive, whole_word):
 
 	# Case-insensitive comparison
 	if (not(case_sensitive)):
-		text = text.casefold()
-		pattern = pattern.casefold()
+		temp_text = text.casefold()
+		temp_pattern = pattern.casefold()
+	else:
+		temp_text = text
+		temp_pattern = pattern
 
-	b = border_function(pattern)
+	b = border_function(temp_pattern)
 
-	while (i < len(text)):
-		if (text[i] == pattern[j]):
-			if (j == len(pattern) - 1):
-				index = i - len(pattern) + 1
-				if (not(whole_word) or wholeword_checker(index, text, len(pattern))):
-					return [text[:index], text[index:(index+len(pattern))], text[index+len(pattern):]]
+	while (i < len(temp_text)):
+		if (temp_text[i] == temp_pattern[j]):
+			if (j == len(temp_pattern) - 1):
+				index = i - len(temp_pattern) + 1
+				if (not(whole_word) or wholeword_checker(index, temp_text, len(temp_pattern))):
+					return [text[:index], text[index:(index+len(temp_pattern))], text[index+len(temp_pattern):]]
 				else:
 					return kmp_algo(text[index + 1:], pattern, case_sensitive, whole_word)
 			i += 1
@@ -44,25 +47,28 @@ def bm_algo(text, pattern, case_sensitive, whole_word):
 
 	# Case-insensitive comparison
 	if (not(case_sensitive)):
-		text = text.casefold()
-		pattern = pattern.casefold()
+		temp_text = text.casefold()
+		temp_pattern = pattern.casefold()
+	else:
+		temp_text = text
+		temp_pattern = pattern
 
-	l = last_occurance(text, pattern)
+	l = last_occurance(temp_text, temp_pattern)
 
-	while (i < len(text)):
-		if (text[i] == pattern[j]):
+	while (i < len(temp_text)):
+		if (temp_text[i] == temp_pattern[j]):
 			if (j == 0):
-				if (not(whole_word) or wholeword_checker(i, text, len(pattern))):
-					return [text[:i], text[i:(i+len(pattern))], text[i+len(pattern):]]
+				if (not(whole_word) or wholeword_checker(i, temp_text, len(temp_pattern))):
+					return [text[:i], text[i:(i+len(temp_pattern))], text[i+len(temp_pattern):]]
 				else:
 					return bm_algo(text[i + 1:], pattern, case_sensitive, whole_word)
 			else:
 				i -= 1
 				j -= 1
 		else:
-			last_occ = l[text[i]]
-			i = i + len(pattern) - min(j, 1 + last_occ)
-			j = len(pattern) - 1
+			last_occ = l[temp_text[i]]
+			i = i + len(temp_pattern) - min(j, 1 + last_occ)
+			j = len(temp_pattern) - 1
 
 	return -1
 
