@@ -72,9 +72,8 @@
             <button type="submit" class="btn btn-primary btn-block">Go!</button>
         </form>
         <br>
-        <p class = "caption"><a href="/about">About us</a></p>
+        <p class = "text-secondary text-center">SPAM! 2018 | <a href="/about">About us</a></p></div>
     </div>
-    <br>
     <br>
     <div class="container">
 
