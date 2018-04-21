@@ -150,8 +150,8 @@ def splitstring(text, matchespositionsstart, matchespositionsend) :
 # MAIN
 #
 def main():
-	text = "ASdasda Check asdasd"
-	pattern = "Check"
+	text = "aku aku aku"
+	pattern = "aku"
 	print("KMP: ")
 	print(kmp_algo(text, pattern, True, True))
 	print("BM: ")
