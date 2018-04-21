@@ -72,7 +72,7 @@
             <button type="submit" class="btn btn-primary btn-block">Go!</button>
         </form>
         <br>
-        <p class = "caption"><a href="about">About us</a></p>
+        <p class = "caption"><a href="/about">About us</a></p>
     </div>
     <br>
     <br>

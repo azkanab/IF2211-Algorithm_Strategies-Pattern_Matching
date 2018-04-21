@@ -68,13 +68,16 @@ def bm_algo(text, pattern, case_sensitive, whole_word):
 
 # Pattern matching using regex
 # Input: Text, pattern -> string
-# Output: Array of string with [0] text before match, [1] matched text, [2] text after match. -1 if no match -> int
+# Output: Array of string with [0], [2] and the other even indices are texts before or after matches and [1], [3] and the other odd indices are texts matched the pattern. -1 if no match -> int
 def regex(text, pattern):
 	regex = re.compile(pattern)
-	matches = regex.findall(text) # Menemukan semua hasil pencarian
-	# Apakah ada yang cocok?
+	# Find all matches
+	matches = regex.findall(text)
+	# Is there any match?
 	if regex.search(text) :
-		matchespositionsstart = [m.start() for m in regex.finditer(text)] # Array form
+		# Finding the start position of all matches in a form of array of integer
+		matchespositionsstart = [m.start() for m in regex.finditer(text)]
+		# Finding the end position of all matches in a form of array of integer
 		matchespositionsend = [m.end() for m in regex.finditer(text)]
 		if len(matches) == 1 :
 			print("1 match found :", matchespositionsstart)
@@ -134,6 +137,10 @@ def wholeword_checker(index, text, length):
 			return False
 	return True
 
+# Changing array of integer in regex function to array of text
+# The array of text is template, kmp_algo and bm_algo also returning this kind of array
+# Input: text -> string, starting index of matches -> array of int, ending index of matches -> array of int
+# Output: Array of string with [0], [2] and the other even indices are texts before or after matches and [1], [3] and the other odd indices are texts matched the pattern
 def splitstring(text, matchespositionsstart, matchespositionsend) :
 	result = []
 	temp = 0

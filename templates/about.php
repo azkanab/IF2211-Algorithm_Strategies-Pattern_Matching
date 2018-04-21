@@ -40,6 +40,7 @@
 	        	<figcaption class = "caption"> Yusuf Rahmat P - 13516062</figcaption>
     		</div>
   		</div>
+        <p class = "text-secondary text-center" style = "padding-top: 150px"><a href="/">Home</a></p>
     </div>
     <br>
     <br>
