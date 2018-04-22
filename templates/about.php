@@ -26,21 +26,21 @@
         <br>
         <br>
         <br>
-        <div class="media">
+        <div class="container d-flex justify-content-around">
     		<div class="media-left">
-  	        	<img class = "media-object img-circle" src = "faza.png" style = "width:200px;height:200px;">
+  	        	<img class = "media-object" src = "faza.png" style = "width:200px;height:200px;">
 	        	<figcaption class = "caption" style="margin-top: 10px"> Faza Fahleraz - 13516095</figcaption>
     		</div>
-    		<div class = "media-body img-circle" style="padding-left: 23%">
+    		<div class = "media-object">
 	        	<img class = "media-object" src = "azka.png" style = "width:200px;height:200px;">
 	        	<figcaption class = "caption" style="margin-top: 10px"> Azka Nabilah M - 13516013</figcaption>
     		</div>
-    		<div class="media-right">
+    		<div class="media-object">
 	        	<img class = "media-object img-circle" src = "ramboy.png" style = "width:200px;height:200px;">
 	        	<figcaption class = "caption" style="margin-top: 10px"> Yusuf Rahmat P - 13516062</figcaption>
     		</div>
   		</div>
-        <p class = "text-secondary text-center" style = "padding-top: 150px">SPAM! 2018 | <a href="/">Main</a></p>
+        <p class="text-secondary text-center" style="padding-top: 150px">SPAM! 2018 | <a href="/">Main</a></p>
     </div>
     <br>
     <br>
