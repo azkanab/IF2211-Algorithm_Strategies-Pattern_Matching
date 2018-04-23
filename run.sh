@@ -1,1 +1,1 @@
-python app.py & php -S localhost:4444 && RUNNING_PID=$! && fg ; kill ${RUNNING_PID}
+python app.py & php -S localhost:4444 && RUNNING_PID=$! ; kill ${RUNNING_PID}
